@@ -50,3 +50,51 @@ UPDATE students SET grade = 'D' WHERE grade = 'C';
 #semua data
 #Jika kita ingin menghapus data yang kita pilih maka gunakan WHERE
 DELETE FROM students WHERE id = 1;
+
+CREATE TABLE teachers (
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    name varchar(191) not null
+);
+
+#coloumn teacher_id pada classes merupakan foreign key atau penghubung antar table,
+#teachers dan classes dimana 1 kelas itu dimiliki oleh 1 guru (One to One) atau
+#1 guru bisa punya banyak kelas (One to Many)
+#Cara mendefinisikan foreign key cukup dengan
+#CONSTRAINT FOREIGN KEY (coloumn) REFERENCES <table> (coloumn) (option)
+#ON DELETE CASCADE digunakan untuk jika kita menghapus 1 guru dari kelas yang diajar,
+#maka kelas yang diajar guru tersebut akan ikut terhapus.
+#
+CREATE TABLE classes (
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    teacher_id bigint not null,
+    name varchar(191) not null,
+
+    CONSTRAINT
+        FOREIGN KEY (teacher_id)
+        REFERENCES teachers (id) ON DELETE CASCADE
+);
+
+INSERT INTO teachers (name) value ('Roy');
+
+#Ketika kita mau menambahkan data relational, kita perlu tau dulu id dari parent table
+#dalam kasus ini parent table adalah teacher, dimana kita mau menambahkan kelas terhadap
+#teacher dengan nama Roy. Dimana, Roy memiliki 2 kelas yaitu sistem Informasi dan Teknik Informasi
+
+INSERT INTO classes (teacher_id, name) VALUES
+(1, "Sistem Informasi"),
+(1, "Teknik Informasi");
+
+#Dalam proses pengambilan data 2 atau lebih table, kita perlu melakukan pemanggilan
+#coloumn dengan nama <table>.<coloumn> jika data yang ingin kita tampilkan kita ganti namanya
+#gunakan as sebagai alias atau pengganti sementara dari nama coloumn
+#dalam kasus ini kita mencoba mengambil data dari table classes dan ingin mengambil data
+#guru berdasarkan coloumn teacher_id yang ada di table classes dengan menggunakan INNER JOIN
+#dimana INNER JOIN membutuhkan FOREIGN KEY sebagai kunci asing atau sebgai izin untuk
+#mengakses table yang kita mau dalam hal ini table teachers yang akan kita ambil datanya
+SELECT
+    classes.name as nama_kelas,
+    teachers.name as nama_guru
+FROM classes
+INNER JOIN teachers on classes.teacher_id = teacher.id
+
+
