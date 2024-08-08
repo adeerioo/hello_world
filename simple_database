@@ -45,3 +45,8 @@ SELECT name FROM students;
 #Kalau kita tidak menambahkan keyword WHERE maka kita akan melakukan update seluruh data
 #Jika kita menggunakan WHERE atau kondisi kita akan merubah data yang ingin kita pilih saja
 UPDATE students SET grade = 'D' WHERE grade = 'C';
+
+#sama dengan update jika kita tidak menggunakan kondisi atau WHERE maka kita akan menghapus
+#semua data
+#Jika kita ingin menghapus data yang kita pilih maka gunakan WHERE
+DELETE FROM students WHERE id = 1;
