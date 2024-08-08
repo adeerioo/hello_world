@@ -1,0 +1,47 @@
+#Ini untuk membuat Database
+CREATE DATABASE simple_database;
+
+#Ini untuk menghapus Database
+DROP DATABASE simple_database;
+
+#PRIMARY KEY membuat identitas atau nilai dari coloumn yang di atur menjadi unik
+#AUTO_INCREMENT membuat id ketika ada data baru, dia akan bertambah 1 karena dia interger
+#contoh:
+#data pertama dengan id 1. Lalu kita membuat record (data) baru maka data baru akan,
+#memiliki id 2 karena menggunakan KEYWORDS AUTO_INCREMENT
+#
+#varchar merupakan tipe data string saat kita menggunakan varchar  kita harus,
+#mendefinisikan berapa panjang dari varchar tersebut.
+#sebagai contoh jika kita membuat varchar dengan panjang 3 maka kita tidak boleh,
+#memasukkan huruf atau karakter lebih dari 3 dan di definisikan varchar(3)
+#dan KEYWORDS not null merupakan flagging atau tanda bahwa coloumn tersebut tidak boleh kosong.
+#
+#Naming convension table biasanya menggunkan plural atau jamak sebagai contoh students bukan student
+#Naming convension coloumn hharus snake_case sebagai contoh student_name
+
+CREATE TABLE students (
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    name varchar(191) not null,
+    grade varchar(191) not null
+);
+
+#Kalau values itu kalian bisa melakukan penambahan banyak sekaligus
+#kalau value kalian hanya bisa menabahkan 1 record saja
+INSERT INTO students (name, grade) VALUES
+('Mohammad Aziz', 'B'),
+('Rozak', 'C');
+
+#Bintang (*) artinya kita memilih semua kolom untuk ditampilkan
+SELECT * FROM students;
+
+#WHERE keyword yang digunakan untuk sebagai filter
+#dalam kasus ini kita ingin mencari students dengan grade C
+SELECT * FROM students WHERE grade = 'C';
+
+# * kita ganti menjadi nama coloumn/field yang artinya kita hanya ingin menampilkan
+#nama dari students
+SELECT name FROM students;
+
+#Kalau kita tidak menambahkan keyword WHERE maka kita akan melakukan update seluruh data
+#Jika kita menggunakan WHERE atau kondisi kita akan merubah data yang ingin kita pilih saja
+UPDATE students SET grade = 'D' WHERE grade = 'C';
